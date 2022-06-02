@@ -4,7 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/bewertung">Bewertung</router-link> |
-      <router-link to="/rest">REST</router-link>
+      <router-link to="/rest">REST</router-link> |
+      <router-link to="/vuex">VUEX</router-link>
     </div>
     <router-view/>
   </div>

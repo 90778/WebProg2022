@@ -26,6 +26,7 @@ export default {
     AddEntry,
     ListEntries
   },
+  
   data: function() {
     return {
       listOfEntries: []
