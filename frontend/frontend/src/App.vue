@@ -5,7 +5,8 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/bewertung">Bewertung</router-link> |
       <router-link to="/rest">REST</router-link> |
-      <router-link to="/vuex">VUEX</router-link>
+      <router-link to="/vuex">VUEX</router-link> |
+      <router-link to="/testAgeView">TestAge</router-link> 
     </div>
     <router-view/>
   </div>

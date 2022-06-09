@@ -19,7 +19,7 @@ const state = {
 const getters = {
     allTodos: (state) => state.todos
 };
-
+// Instead of mutating the state, actions commit mutationsarbitrary asynchronous
 const actions = {
     async fetchTodos({ commit }) {
         const response = await axios.get(state.api);
