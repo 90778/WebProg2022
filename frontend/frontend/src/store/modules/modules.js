@@ -8,6 +8,10 @@ const state = {
     units: [],
     structures: [],
     technologies: [],
+    sortedByNameCivilizations: [],
+    sortedByNameUnits: [],
+    sortedByNameStructures: [],
+    sortedByNameTechnologies: [],
 };
 // read only aus store
 const getters = {
@@ -15,6 +19,11 @@ const getters = {
    getAllUnits:  (state) => state.units,
    getAllStructures:  (state) => state.structures,
    getAllTechnologies:  (state) => state.technologies,
+
+   getAllSortedByNameCivilizations: (state) => state.sortedByNameCivilizations,
+   getAllSortedByNameUnits:  (state) => state.sortedByNameUnits,
+   getAllSortedByNameStructures:  (state) => state.sortedByNameStructures,
+   getAllSortedByNameTechnologies:  (state) => state.sortedByNameTechnologies,
 };
 // Instead of mutating the state, actions commit mutations
 const actions = {
@@ -38,6 +47,15 @@ const actions = {
 
         commit('setTechnologies', response.data.technologies);
     },
+    // commit, dispatch
+    async sortAll({ commit , dispatch}) {
+        // needs to wait until infos are there
+        await dispatch('fetchAllCivilizations');
+        await dispatch('fetchAllUnits');
+        await dispatch('fetchAllStructures');
+        await dispatch('fetchAllTechnologies');
+        commit('sortByNameArray');
+    },
 
 
 };
@@ -48,7 +66,21 @@ const mutations = {
     setUnits:  (state, units) => (state.units = units),
     setStructures:  (state, structures) => (state.structures = structures),
     setTechnologies:  (state, technologies) => (state.technologies = technologies),
-};
+    
+    sortByNameArray(state) {
+        state.sortedByNameCivilizations = state.civilizations;
+        state.sortedByNameCivilizations.sort((a, b) => a.name.localeCompare(b.name));
+        state.sortedByNameUnits = state.units;
+        state.sortedByNameUnits = state.units.sort((a, b) => a.name.localeCompare(b.name));
+        state.sortedByNameStructures = state.structures;
+        state.sortedByNameStructures = state.structures.sort((a, b) => a.name.localeCompare(b.name));
+        state.sortedByNameTechnologies = state.technologies;
+        state.sortedByNameTechnologies = state.technologies.sort((a, b) => a.name.localeCompare(b.name));
+
+        //state[arrays.sortedArray] = state[arrays.toBeSorted].sort((a, b) => a.firstname.localeCompare(b.firstname));
+    }
+}
+                        
 
 export default {
     state,
