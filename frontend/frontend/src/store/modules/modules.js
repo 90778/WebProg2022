@@ -71,11 +71,11 @@ const mutations = {
         state.sortedByNameCivilizations = state.civilizations;
         state.sortedByNameCivilizations.sort((a, b) => a.name.localeCompare(b.name));
         state.sortedByNameUnits = state.units;
-        state.sortedByNameUnits = state.units.sort((a, b) => a.name.localeCompare(b.name));
+        //state.sortedByNameUnits.sort((a, b) => a.name.localeCompare(b.name));
         state.sortedByNameStructures = state.structures;
-        state.sortedByNameStructures = state.structures.sort((a, b) => a.name.localeCompare(b.name));
+        state.sortedByNameStructures.sort((a, b) => a.name.localeCompare(b.name));
         state.sortedByNameTechnologies = state.technologies;
-        state.sortedByNameTechnologies = state.technologies.sort((a, b) => a.name.localeCompare(b.name));
+        state.sortedByNameTechnologies.sort((a, b) => a.name.localeCompare(b.name));
 
         //state[arrays.sortedArray] = state[arrays.toBeSorted].sort((a, b) => a.firstname.localeCompare(b.firstname));
     }
