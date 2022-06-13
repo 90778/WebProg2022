@@ -8,6 +8,7 @@ const state = {
     units: [],
     structures: [],
     technologies: [],
+    newURL: '',
 };
 // read only aus store
 const getters = {
@@ -15,6 +16,8 @@ const getters = {
    getAllUnits:  (state) => state.units,
    getAllStructures:  (state) => state.structures,
    getAllTechnologies:  (state) => state.technologies,
+
+   getNewURL: (state) => state.newURL,
 };
 // Instead of mutating the state, actions commit mutations
 const actions = {
@@ -39,6 +42,10 @@ const actions = {
         commit('setTechnologies', response.data.technologies);
     },
 
+    async createDynamicURL({ commit }, newURL) {
+        console.log(1);
+        commit('setNewURL', newURL);
+    }
 
 };
 //ändert/modifiziert den store
@@ -48,6 +55,8 @@ const mutations = {
     setUnits:  (state, units) => (state.units = units),
     setStructures:  (state, structures) => (state.structures = structures),
     setTechnologies:  (state, technologies) => (state.technologies = technologies),
+
+    setNewURL: (state, newURL) => (state.newURL = newURL),
 };
 
 export default {
