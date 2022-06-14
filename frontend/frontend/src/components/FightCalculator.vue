@@ -39,7 +39,7 @@
                     <input type="number" v-bind="redNumberOfUnits" placeholder="Anzahl Units"> 
                 </div> 
                 <div class="grid-item"><!-- v-bind binds data to element, but element needs to be bound to data. Not v-model -->
-                    <p>{{ redUnit.attack }} + </p><input id="x" type="number" v-bind="redBonusAttack"  max="15" min="-15" placeholder="Unit Bonus Attack"> 
+                    <p>{{ redUnit.attack }} + </p><input id="redBonusAttack" type="number" @change="setVariable($event)" max="15" min="-15" placeholder="Unit Bonus Attack"> 
                 </div>
             </div>
             <div class="grid-item">{{ calculateFight() }}</div>
@@ -60,6 +60,10 @@ export default {
         "fetchAllTechnologies",
         "sortAll"
         ]),
+
+        setVariable(e) {
+            this[e.target.id] = document.getElementById(e.target.id).value;
+        },
 
         calculateFight() {
             let armyHpBlue = this.blueUnit.hit_points;
