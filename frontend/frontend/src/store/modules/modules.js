@@ -8,7 +8,10 @@ const state = {
     units: [],
     structures: [],
     technologies: [],
-    infoCardInformation: "test",
+    infoCardInformation: "LOADING",
+    infoCardInformationArray: [],
+    isProcessing: true,
+    currentInfoCardClass: "",
 };
 // read only aus store
 const getters = {
@@ -18,8 +21,12 @@ const getters = {
     getAllTechnologies:  (state) => state.technologies,
 
     getInfoCardInformation(state) {
-        return state.infoCardInformation
-    }, 
+        return state.infoCardInformation;
+    },
+
+    getIsProcessing: (state) => state.isProcessing,
+    getInfoCardInformationArray: (state) => state.infoCardInformationArray,
+    getCurrentInfoCardClass: (state) => state.currentInfoCardClass,
 };
 // Instead of mutating the state, actions commit mutations
 const actions = {
@@ -40,7 +47,6 @@ const actions = {
     },
     async fetchAllTechnologies({ commit }) {
         const response = await axios.get(state.corsProxy + state.api + "technologies");
-
         commit('setTechnologies', response.data.technologies);
     },
 
@@ -48,8 +54,19 @@ const actions = {
         commit('setInfoCardInformation', newInfo);
     },
     
-    async changeInfoCard({ commit }, obj) {
+    async changeInfoCard({ commit, dispatch }, obj) {
+        if(state[obj.class].length == 0) { // calls the needed fetch fuction if there is no data
+            await dispatch("fetchAll" + obj.class.charAt(0).toUpperCase() + obj.class.slice(1));
+        }
         commit('changeInfoCardInformation', obj);
+    },
+
+    async setProcessing({ commit }, bool) {
+        commit('setProcessingState', bool)
+    },
+
+    async nextInfoCard({ commit }) {
+        commit('placeholder');
     }
 
 };
@@ -63,21 +80,31 @@ const mutations = {
     
     setInfoCardInformation: (state, newInfo) => (state.infoCardInformation = newInfo),
     changeInfoCardInformation(state, obj) {
+        // save against out of range ids
+        if(obj.id> state[obj.class].length || obj.id < 1) {
+            console.log("nein");
+            obj.id = state.infoCardInformation.id;
+        }
+        state.currentInfoCardClass = obj.class;
         for(let i = 0; i < state[obj.class].length; i++) {
             if(state[obj.class][i].id === obj.id) {
                 state.infoCardInformation = state[obj.class][i];
             }
         }
-        console.log("returned" + state[obj.class][0].id + " " + obj.class + obj.id);
-        console.log(state.infoCardInformation);
-        return;
+        let counter = 0;
+        for (let prop in state.infoCardInformation) {
+            state.infoCardInformationArray[counter++] = prop;
+        }
+
+        //console.log("returned" + state[obj.class][0].id + " " + obj.class + obj.id);
     },
-    //changeInfoCardInformation: (state, classOfInfo, id) => (state.infoCardInformation = state[classOfInfo][id-1]) // id-1 = place in unsorted array
+    
+    setProcessingState: (state, bool) => (state.isProcessing = bool),
 };
 
 export default {
     state,
     getters,
     actions,
-    mutations
+    mutations,
 }

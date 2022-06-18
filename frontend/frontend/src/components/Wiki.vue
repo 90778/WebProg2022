@@ -1,14 +1,14 @@
 <template>
     <div id="app">
         <h2>This is the Wiki</h2>
-        <Button @click="changeInfoCard(obj = {class: 'civilizations', id: 1})">Civilization</Button>
-        <Button @click="changeInfoCard(obj = {class: 'units', id: 1})">Unit</Button>
-        <Button @click="changeInfoCard(obj = {class: 'structures', id: 1})">Strategie</Button>
-        <Button @click="changeInfoCard(obj = {class: 'technologies', id: 1})">Technologies</Button>
+        <Button @click="x(obj = {class: 'civilizations', id: 1})">Civilization</Button>
+        <Button @click="x(obj = {class: 'units', id: 1})">Unit</Button>
+        <Button @click="x(obj = {class: 'structures', id: 1})">Strategie</Button>
+        <Button @click="x({class: 'technologies', id: 1})">Technologies</Button>
         <br>
-        <Button>next</Button>
-        <Button>prev</Button>
-        <InfoCard/>
+        <Button v-if="!getIsProcessing" @click="x(obj = {class: getCurrentInfoCardClass, id: (parseInt(getInfoCardInformation.id) + 1)})">next</Button>
+        <Button v-if="!getIsProcessing" @click="x(obj = {class: getCurrentInfoCardClass, id: (parseInt(getInfoCardInformation.id) - 1)})">prev</Button>
+        <InfoCard v-if="!getIsProcessing"/>
     </div>
 </template>
 
@@ -17,7 +17,7 @@ import { mapActions, mapGetters } from 'vuex';
 import InfoCard from '@/components/InfoCard.vue';
 
 export default {
-    name: "TestAgeComponent",
+    name: "Wiki",
     components: {
         InfoCard
     },
@@ -30,7 +30,14 @@ export default {
         "fetchAllTechnologies",
         "setInfoCard",
         "changeInfoCard",
+        "setProcessing",
         ]),
+
+        x(obj) {
+            this.changeInfoCard(obj);
+            this.setProcessing(false);
+            
+        }
 
     },
     computed: {
@@ -38,7 +45,11 @@ export default {
         "getAllCivilizations",
         "getAllUnits",
         "getAllStructures",
-        "getAllTechnologies"
+        "getAllTechnologies",
+        "getIsProcessing",
+        "getInfoCardInformation",
+        "getInfoCardInformationArray",
+        "getCurrentInfoCardClass",
         ])
     },
     
