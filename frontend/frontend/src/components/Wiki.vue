@@ -3,7 +3,7 @@
         <h2>This is the Wiki</h2>
         <Button @click="x(obj = {class: 'civilizations', id: 1})">Civilization</Button>
         <Button @click="x(obj = {class: 'units', id: 1})">Unit</Button>
-        <Button @click="x(obj = {class: 'structures', id: 1})">Strategie</Button>
+        <Button @click="x(obj = {class: 'structures', id: 1})">Structures</Button>
         <Button @click="x({class: 'technologies', id: 1})">Technologies</Button>
         <br>
         <Button v-if="!getIsProcessing" @click="x(obj = {class: getCurrentInfoCardClass, id: (parseInt(getInfoCardInformation.id) + 1)})">next</Button>

@@ -91,6 +91,7 @@ const mutations = {
                 state.infoCardInformation = state[obj.class][i];
             }
         }
+        state.infoCardInformationArray = [];
         let counter = 0;
         for (let prop in state.infoCardInformation) {
             state.infoCardInformationArray[counter++] = prop;
