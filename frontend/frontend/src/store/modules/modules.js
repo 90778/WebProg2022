@@ -9,6 +9,7 @@ const state = {
     structures: [],
     technologies: [],
     infoCardInformation: "LOADING",
+    infoCardInformation2: "LOADING",
     infoCardInformationArray: [],
     isProcessing: true,
     currentInfoCardClass: "",
@@ -23,6 +24,8 @@ const getters = {
     getInfoCardInformation(state) {
         return state.infoCardInformation;
     },
+
+    getInfoCardInformation2: (state) => state.infoCardInformation2,
 
     getIsProcessing: (state) => state.isProcessing,
     getInfoCardInformationArray: (state) => state.infoCardInformationArray,
@@ -50,8 +53,24 @@ const actions = {
         commit('setTechnologies', response.data.technologies);
     },
 
-    async setInfoCard({ commit }, newInfo) {
-        commit('setInfoCardInformation', newInfo);
+    async setInfoCard({ commit, dispatch }, obj) {
+        obj.name = obj.name.charAt(0).toUpperCase() + obj.name.slice(1); // ersten buchstaben groß
+
+
+        let split = obj.name.split("_")
+        obj.name = "";
+        for(let x = 0; x < split.length; x++) {
+            obj.name += (split[x].charAt(0).toUpperCase() + split[x].slice(1));
+            if(x < split.length - 1) {
+                obj.name += " ";
+            }
+        }
+
+        if(state[obj.class].length == 0) { // calls the needed fetch fuction if there is no data
+            await dispatch("fetchAll" + obj.class.charAt(0).toUpperCase() + obj.class.slice(1));
+        }
+        commit('setInfoCardInformation', obj);
+        commit('setProcessingState', false);
     },
     
     async changeInfoCard({ commit, dispatch }, obj) {
@@ -59,6 +78,7 @@ const actions = {
             await dispatch("fetchAll" + obj.class.charAt(0).toUpperCase() + obj.class.slice(1));
         }
         commit('changeInfoCardInformation', obj);
+        commit('setProcessingState', false);
     },
 
     async setProcessing({ commit }, bool) {
@@ -67,7 +87,12 @@ const actions = {
 
     async nextInfoCard({ commit }) {
         commit('placeholder');
-    }
+        console.log("not implemented yet");
+    },
+
+    async createPsydoLink({ commit }) {
+        commit('')
+    },
 
 };
 //ändert/modifiziert den store
@@ -77,18 +102,34 @@ const mutations = {
     setUnits:  (state, units) => (state.units = units),
     setStructures:  (state, structures) => (state.structures = structures),
     setTechnologies:  (state, technologies) => (state.technologies = technologies),
-    
-    setInfoCardInformation: (state, newInfo) => (state.infoCardInformation = newInfo),
+    //obj => class / name
+    setInfoCardInformation(state, obj) {
+        console.log(obj.class + " " + obj.name);
+        state.currentInfoCardClass = obj.class;
+        for(let i = 0; i < state[obj.class].length; i++) {
+            if(state[obj.class][i].name === obj.name) {
+                state.infoCardInformation = state[obj.class][i];
+                state.infoCardInformation2 = JSON.parse(JSON.stringify(state.infoCardInformation));
+            }
+        }
+        state.infoCardInformationArray = [];
+        let counter = 0;
+        for (let prop in state.infoCardInformation) {
+            state.infoCardInformationArray[counter++] = prop;
+        }
+    },
+    //obj => class / id
     changeInfoCardInformation(state, obj) {
         // save against out of range ids
         if(obj.id> state[obj.class].length || obj.id < 1) {
-            console.log("nein");
+            console.log("keine weiteren daten in dieser richtung vorhanden");
             obj.id = state.infoCardInformation.id;
         }
         state.currentInfoCardClass = obj.class;
         for(let i = 0; i < state[obj.class].length; i++) {
             if(state[obj.class][i].id === obj.id) {
                 state.infoCardInformation = state[obj.class][i];
+                state.infoCardInformation2 = JSON.parse(JSON.stringify(state.infoCardInformation));
             }
         }
         state.infoCardInformationArray = [];

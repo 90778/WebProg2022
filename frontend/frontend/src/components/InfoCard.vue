@@ -4,9 +4,12 @@
         
         <div class="grid-container1">
             <div class="grid-item1">
-                <div v-for="parameter in getInfoCardInformation" :key="parameter.id">{{ parseCorrectInfoCardInformation( parameter ) }}</div>
+                <div class="info">
+                    <!-- changes after generation to class psydoLink -->
+                    <div v-for="parameter in getInfoCardInformation" :key="parameter.id">{{ parseCorrectInfoCardInformation( parameter ) }}</div>
+                </div>
             </div>
-            <div class="grid-item1">
+            <div class="grid-item2">
                 <div v-for="name in getInfoCardInformationArray" :key="name.id">{{ name }}</div>
             </div>
         </div>
@@ -55,7 +58,6 @@ export default {
                 for(let i = 0; i<array.length; i++) {
                     // entfernen des : und auf spliten von name und wert
                     array2[i] = array[i].split(":")
-                    console.log(array2);
                     let x = 0;
                     while(x < array2[i].length -1) {
                         array[i] = array2[i][x] + ": "
@@ -68,10 +70,15 @@ export default {
             }
             // string/number/etc.
             if(this.linkRegex.test(element) && !(element instanceof Object)) {
+                
                 return this.linkNameExtraction(element);
             }
             //default
             return element;
+        },
+
+        addLinkEvent() {
+
         },
 
         linkNameExtraction(string) {
@@ -82,8 +89,14 @@ export default {
 
     data() {
         return {
+            // regex sucht nach format https://age-of-empires-2-api.herokuapp.com/api/v1/??????????/ 
             linkRegex: /^[a-z]{1,5}[^\s\da-zA-Z]{1,3}[a-z]{1,3}[^\s\da-zA-Z][a-z]{1,2}[^\s\da-zA-Z][a-z]{1,7}[^\s\da-zA-Z]\d[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]{1,9}[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]\d[^\s\da-zA-Z][a-z]{1,13}./,
         }
+    },
+
+    mounted() {
+        this.$parent.change();
+        console.log("mounted");
     },
 
     computed: {
@@ -97,5 +110,9 @@ export default {
 </script>
 
 <style>
+.psydoLink {
+    color: blue;
+    text-decoration: underline;
 
+}
 </style>
