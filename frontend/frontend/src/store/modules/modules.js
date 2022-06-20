@@ -8,6 +8,7 @@ const state = {
     units: [],
     structures: [],
     technologies: [],
+    newURL: '',
     infoCardInformation: "LOADING",
     infoCardInformation2: "LOADING",
     infoCardInformationArray: [],
@@ -30,6 +31,8 @@ const getters = {
     getIsProcessing: (state) => state.isProcessing,
     getInfoCardInformationArray: (state) => state.infoCardInformationArray,
     getCurrentInfoCardClass: (state) => state.currentInfoCardClass,
+
+   getNewURL: (state) => state.newURL,
 };
 // Instead of mutating the state, actions commit mutations
 const actions = {
@@ -55,6 +58,10 @@ const actions = {
 
     async setInfoCard({ commit, dispatch }, obj) {
         obj.name = obj.name.charAt(0).toUpperCase() + obj.name.slice(1); // ersten buchstaben groß
+    async createDynamicURL({ commit }, newURL) {
+        console.log(1);
+        commit('setNewURL', newURL);
+    }
 
 
         let split = obj.name.split("_")
@@ -102,6 +109,8 @@ const mutations = {
     setUnits:  (state, units) => (state.units = units),
     setStructures:  (state, structures) => (state.structures = structures),
     setTechnologies:  (state, technologies) => (state.technologies = technologies),
+
+    setNewURL: (state, newURL) => (state.newURL = newURL),
     //obj => class / name
     setInfoCardInformation(state, obj) {
         console.log(obj.class + " " + obj.name);

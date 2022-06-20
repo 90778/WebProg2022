@@ -8,6 +8,7 @@
       <router-link to="/vuex">VUEX</router-link> |
       <router-link to="/testAgeView">TestAge</router-link> |
       <router-link to="/wikiView">Wiki</router-link>
+      <router-link to="/techSearchView">TechSearch</router-link> 
     </div>
     <router-view/>
   </div>
