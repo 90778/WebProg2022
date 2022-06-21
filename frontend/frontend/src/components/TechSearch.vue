@@ -56,7 +56,7 @@ export default {
         return {
             chosenUnit: '',
             allTechsForUnit: [],
-            testURL: "https://test",
+            testURL: "./wikiView",
         }
     },
 

@@ -56,12 +56,13 @@ const actions = {
         commit('setTechnologies', response.data.technologies);
     },
 
+    async createDynamicURL({ commit }, newURL) {
+        commit('setNewURL', newURL);
+    },
+    
     async setInfoCard({ commit, dispatch }, obj) {
         obj.name = obj.name.charAt(0).toUpperCase() + obj.name.slice(1); // ersten buchstaben groß
-    async createDynamicURL({ commit }, newURL) {
-        console.log(1);
-        commit('setNewURL', newURL);
-    }
+    
 
 
         let split = obj.name.split("_")
