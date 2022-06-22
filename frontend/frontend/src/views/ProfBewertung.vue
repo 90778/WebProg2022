@@ -1,7 +1,7 @@
 <template>
   <v-app id="bewertung">
     <h2>test</h2>
-    <h1>Professor Rating App</h1>
+    <h1 class="header" id="headerBewertung">Professor Rating App</h1>
     <AddEntry id="addEntry" @entryAdded="addEntry"></AddEntry>
     <ListEntries
       id="listEntry"
@@ -66,22 +66,3 @@ export default {
   }
 };
 </script>
-
-<style>
-#bewertung {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  padding: 60px;
-  width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: lightblue;
-}
-#addEntry,
-h1 {
-  margin-bottom: 40px;
-}
-</style>

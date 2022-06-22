@@ -1,13 +1,19 @@
 <template>
   <div id="app">
-    <img :src="this.getCurrentArticlePicture()">
+    <img class="restImage" :src="this.getCurrentArticlePicture()">
     <p></p>
     <br>
-    {{ this.currentArticleNumber }}
-    <button @click="getArticle(++currentArticleNumber);">next article</button>
+    <span class="counter">
+      {{ this.currentArticleNumber }}
+    </span>
+    <v-btn class="addButton" id="nextArticle" @click="getArticle(++currentArticleNumber)">
+      next article
+    </v-btn>
     <p></p>
     <br>
-    {{ getArticleAbstract() }}
+    <p class="abstract">
+      {{ getArticleAbstract() }}
+    </p>
     <br>
     <a :href="currentArticleUrl" target="_blank">{{getLink()}}</a>
     <p></p>
@@ -77,14 +83,6 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 /* does not work why?*/
 .button {
   background-color: #4CAF50; /* Green */

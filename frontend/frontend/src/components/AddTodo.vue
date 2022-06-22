@@ -1,10 +1,19 @@
 <template>
     <div>
-        <h3>Add Todo</h3>
+        <h2>Add Todo</h2>
         <div class="add">
             <form @submit="onSubmit">
-                <input type="text" v-model="title" placeholder="Add Todo"/>
-                <input type="submit" value="Submit"/>
+                <v-text-field
+                    id="input"
+                    class="inputTodo"
+                    :color="'red'"
+                    label="Add Todo"
+                    v-model="title"
+                >
+                </v-text-field>
+                <v-btn type="submit" id="submitToDo" class="addButton mb-4" value="Submit">
+                    Submit
+                </v-btn>
             </form>
         </div>
     </div>
@@ -31,15 +40,3 @@ export default {
     }
 }
 </script>
-
-<style>
-input[type="text"] {
-    flex: 10;
-    border: 1px solid #41b883;
-}
-
-input[type="submit"] {
-    flex: 2;
-    background: greenyellow;
-}
-</style>

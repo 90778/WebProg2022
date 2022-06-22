@@ -1,0 +1,43 @@
+.inputTodo {
+    width: 10rem;
+    margin: 0 auto;
+}
+
+.v-application--is-ltr .v-text-field .v-label {
+    color: gray!important;
+    opacity: 1;
+}
+
+#submitToDo {
+    margin-bottom: 1rem;   
+}
+
+.filterTodo {
+    border: 1px solid gray;
+    color: gray;
+    margin-bottom: 2rem;
+    width: 3rem;
+    padding: 0.2rem;
+    margin-left: 0.3rem;
+}
+
+.deleteButton {
+    background-color: rgb(181, 0, 0) !important;
+    height: 1.5rem !important;
+    width: 2.5rem;
+    margin-top: 0.5rem;
+}
+
+.todo {
+    margin: 0.5rem;
+    width: 20rem;
+    padding: 1rem;
+    border: 1px solid #b98440;
+    border-radius: 5px;
+}
+
+.todos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}

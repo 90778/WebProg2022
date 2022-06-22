@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <h1>TestStuff</h1>
+        <h2 class="mb-5">TestStuff</h2>
         <TestAgeComponent/>
     </div>
 </template>

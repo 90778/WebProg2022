@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-3">
     <span v-show="!isEditable" id="name" @click="editEntry">{{ entry.name }}</span>
     <v-text-field
       id="input"
@@ -10,8 +10,15 @@
       ref="input"
     ></v-text-field>
 
-    <v-rating v-model="entry.rating" background-color="black" color="#ffcc00" @input="editRating"></v-rating>
-    <v-btn @click="removeEntry">Remove</v-btn>
+    <v-rating
+      v-model="entry.rating"
+      @input="editRating"
+      background-color="#b98440"
+      color="#daa520"
+      class="ml-5 mr-5"
+      >
+    </v-rating>
+    <v-btn class="removeButton" @click="removeEntry">Remove</v-btn>
   </div>
 </template>
 

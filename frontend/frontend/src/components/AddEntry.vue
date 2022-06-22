@@ -1,8 +1,21 @@
 <template>
   <div>
-    <v-text-field id="input" label="Name of professor" v-model="name"></v-text-field>
-    <v-rating id="rating" v-model="rating" background-color="black" color="#ffcc00"></v-rating>
-    <v-btn @click="addEntry">Add</v-btn>
+    <v-text-field
+      id="input"
+      :color="'#b98440'"
+      label="Name of professor"
+      v-model="name">
+    </v-text-field>
+    <v-rating
+      id="rating"
+      class="ml-2 mr-3"
+      v-model="rating"
+      background-color="#b98440"
+      color="#daa520"
+    ></v-rating>
+    <v-btn class="addButton" @click="addEntry">
+      Add
+    </v-btn>
   </div>
 </template>
 

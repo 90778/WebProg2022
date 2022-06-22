@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Akaya+Telivigala&display=swap');
+
+#bewertung {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    padding: 0 60px;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #b98440;
+    background-color: #271b1b;
+  }
+
+  .addButton, .removeButton {
+      background-color: #b98440 !important;
+      color: rgb(223, 223, 223) !important;
+  }
+
+  #addEntry,
+  #headerBewertung {
+    margin-bottom: 40px;
+  }
+
+  .header {
+    color: rgb(170, 170, 170);
+    font-family: 'Akaya Telivigala', cursive;
+  }
+
+  h2 {
+      color: rgb(170, 170, 170);
+      font-family: 'Akaya Telivigala', cursive;
+  }
+
+  .v-application--is-ltr .v-text-field .v-label {
+    color: gray !important;
+    opacity: 1;
+  }
+
+  #input {
+      border-bottom: 1px solid gray;
+      color: gray;
+  }
+
+  #listEntry {
+    color: rgb(223, 223, 223);
+    font-family: 'Akaya Telivigala', cursive;
+    font-size: 1.5rem;
+  }

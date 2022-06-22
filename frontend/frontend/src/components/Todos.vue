@@ -1,7 +1,7 @@
 
 <template>
     <div id=app>
-        <h2>Todos</h2>
+        <h2 class="mb-3">Todos</h2>
         <div class="todos">
             <!-- all new todos will have the same id -->
             <div 
@@ -11,7 +11,10 @@
                 class="todo"
                 v-bind:class="{'is-complete':todo.completed}"><!-- if todo.completed is true then the class is-complete is bound to this div -->
                 {{ todo.title }}
-                <button @click="deleteTodo(todo.id)" style="background-color: #DC985E;" class="btn">delete</button>
+                <br>
+                <v-btn class="deleteButton mt-3" @click="deleteTodo(todo.id)">
+                    delete
+                </v-btn>
             </div>
         </div>
     </div>
@@ -54,7 +57,7 @@ export default {
 }
 
 .is-complete {
-    background: #35495e;
+    background: #046738;
     color: #fff;
 }
 </style>

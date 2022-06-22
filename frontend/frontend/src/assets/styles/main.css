@@ -1,0 +1,32 @@
+body {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #b98440;
+    background-color: #271b1b;
+    padding: 0 2rem 0 2rem;
+    text-align: center;
+  }
+
+  #headerImage {
+      width: 10rem;
+      margin-top: 1rem;
+  }
+  
+  #nav {
+    padding: 0 30px 30px 30px;
+  }
+  
+  #nav a {
+    font-weight: bold;
+    color: #b98440;
+  }
+
+  .mb-3 {
+    margin-bottom: 0.75rem;
+}
+
+  .mb-5 {
+      margin-bottom: 1.5rem;
+  }

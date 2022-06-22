@@ -1,0 +1,29 @@
+.restImage {
+    width: 6rem;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+}
+
+.abstract {
+    color: rgb(223, 223, 223);
+    max-width: 40rem;
+    margin: 0 auto;
+    font-size: 1.2rem;
+}
+
+a {
+    color: #b98440;
+    margin-bottom: 5rem;
+}
+
+.counter {
+    margin-right: 0.5rem;
+}
+
+#nextArticle {
+    margin-top: -0.3rem !important;
+}
+
+.v-label {
+    color: gray !important;
+}

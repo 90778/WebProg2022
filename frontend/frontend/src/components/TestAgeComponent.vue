@@ -1,9 +1,11 @@
 <template>
     <div id="app">
-        <div 
-        v-for="item in getAllUnits" 
-        :key="item.id">
-        {{ item.name }}
+        <div
+            v-for="item in getAllUnits" 
+            :key="item.id"
+            class="element"
+        >
+            {{ item.name }}
         </div>
     </div>
 </template>
