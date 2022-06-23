@@ -27,25 +27,17 @@ export default {
         "changeInfoCard",
         ]),
 
-        x() {
-            //Object.keys({ testObj })
-            let counter = 0;
-            for (let prop in this.getInfoCardInformation) {
-                    //return prop;
-                    this.arr[counter++] = prop;
-                }
-        },
-
         parseCorrectInfoCardInformation(element) {
             // Arrays
             if(element instanceof Array) {
+                let array = element.slice();
                 if(element.length === 0) {
                     return "none";
                 }
                 for(let i = 0; i < element.length; i++ ) {
-                    element[i] = this.linkNameExtraction(element[i]);
+                    array[i] = this.linkNameExtraction(array[i]);
                 }
-                return element.toString();
+                return array.toString();
             }
             // Object
             if(element instanceof Object) {
@@ -70,7 +62,6 @@ export default {
             }
             // string/number/etc.
             if(this.linkRegex.test(element) && !(element instanceof Object)) {
-                
                 return this.linkNameExtraction(element);
             }
             //default
@@ -96,7 +87,7 @@ export default {
 
     mounted() {
         this.$parent.change();
-        console.log("mounted");
+        console.log("InfoCard mounted");
     },
 
     computed: {

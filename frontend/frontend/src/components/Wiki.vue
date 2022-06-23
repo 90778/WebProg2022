@@ -73,15 +73,16 @@ export default {
             for(let x = 0; x < Object.keys(info).length; x++) {
                 let item = Object.keys(info)[x];*/
                 //reset all classes
-                console.log(counter);
-                console.log(domElement['0'].children);
+                //console.log(counter);
+                //console.log(domElement['0'].children);
                 domElement['0'].children[counter].className = "test";
-                console.log(domElement['0'].children.length);
+                //console.log(domElement['0'].children.length);
 
                 if(info[item] instanceof Array) {
                     for(let i = 0; i < info[item].length; i++ ) {
                         // wenn link dann
-                        if(this.linkRegex.test(info[item])) {
+                       
+                        if(this.linkRegex.test(info[item])) { 
                             let split = info[item][i].replace(this.linkRegex, "").split("/");
                             //setInfocardInformation
                             
@@ -91,6 +92,7 @@ export default {
                         }
                     }
                 }else{
+                    
                     if(this.linkRegex.test(info[item])) {
                         let split = info[item].replace(this.linkRegex, "").split("/");
                         //setInfocardInformation
@@ -103,20 +105,14 @@ export default {
             
         },
 
-        test(txt) {
-            console.log(txt);
-        },
-
         getInfoCard(obj) {
-            this.currentInfoCardClass = obj.class;
-            this.changeInfoCard(obj);
-            this.change();
+            this.changeInfoCard(obj).then(() => {this.change()});
+            //this.change();
         },
 
         setThisInfoCard(obj) {
-            this.currentInfoCardClass = obj.class;
-            this.setInfoCard(obj);
-            this.change();
+            this.setInfoCard(obj).then(() => {this.change()});
+            //this.change();
         }
 
     },
@@ -140,6 +136,16 @@ export default {
         this.fetchAllUnits();
         this.fetchAllStructures();
         this.fetchAllTechnologies();
+        if(sessionStorage.getItem('isProcessing') === null) {
+            sessionStorage.setItem('isProcessing', true)
+        }
+        if(sessionStorage.getItem('infoCardInformation') === null) {
+            let obj = {0: "Loading"}
+            sessionStorage.setItem('infoCardInformation', JSON.stringify(obj))
+        }
+        if(sessionStorage.getItem('currentInfoCardClass') === null) {
+            sessionStorage.setItem('currentInfoCardClass', "");
+        }
     }
 }
 </script>

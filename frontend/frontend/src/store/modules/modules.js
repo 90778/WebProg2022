@@ -9,11 +9,11 @@ const state = {
     structures: [],
     technologies: [],
     newURL: '',
-    infoCardInformation: "LOADING",
-    infoCardInformation2: "LOADING",
+    infoCardInformation: JSON.parse(sessionStorage.getItem('infoCardInformation')),
+    infoCardInformation2: JSON.parse(sessionStorage.getItem('infoCardInformation')),
     infoCardInformationArray: [],
-    isProcessing: true,
-    currentInfoCardClass: "",
+    isProcessing: (sessionStorage.getItem('isProcessing') === 'true'),
+    currentInfoCardClass: sessionStorage.getItem('currentInfoCardClass'),
 };
 // read only aus store
 const getters = {
@@ -78,6 +78,7 @@ const actions = {
             await dispatch("fetchAll" + obj.class.charAt(0).toUpperCase() + obj.class.slice(1));
         }
         commit('setInfoCardInformation', obj);
+        console.log("set");
         commit('setProcessingState', false);
     },
     
@@ -86,20 +87,12 @@ const actions = {
             await dispatch("fetchAll" + obj.class.charAt(0).toUpperCase() + obj.class.slice(1));
         }
         commit('changeInfoCardInformation', obj);
+        console.log("change");
         commit('setProcessingState', false);
     },
 
     async setProcessing({ commit }, bool) {
         commit('setProcessingState', bool)
-    },
-
-    async nextInfoCard({ commit }) {
-        commit('placeholder');
-        console.log("not implemented yet");
-    },
-
-    async createPsydoLink({ commit }) {
-        commit('')
     },
 
 };
@@ -152,6 +145,7 @@ const mutations = {
     },
     
     setProcessingState: (state, bool) => (state.isProcessing = bool),
+    setInfoCardDataLoading: (state) => (state.infoCardInformation = state.infoCardInformation2 = "LOADING"),
 };
 
 export default {
