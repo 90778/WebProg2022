@@ -125,12 +125,13 @@ const mutations = {
         state.sortedByNameCivilizations = state.civilizations;
         state.sortedByNameCivilizations.sort((a, b) => a.name.localeCompare(b.name));
         state.sortedByNameUnits = state.units;
-        //state.sortedByNameUnits.sort((a, b) => a.name.localeCompare(b.name));
+        state.sortedByNameUnits.sort((a, b) => a.name.localeCompare(b.name));
         state.sortedByNameStructures = state.structures;
         state.sortedByNameStructures.sort((a, b) => a.name.localeCompare(b.name));
         state.sortedByNameTechnologies = state.technologies;
         state.sortedByNameTechnologies.sort((a, b) => a.name.localeCompare(b.name));
-
+        //state[arrays.sortedArray] = state[arrays.toBeSorted].sort((a, b) => a.firstname.localeCompare(b.firstname));
+    },
     setNewURL: (state, newURL) => (state.newURL = newURL),
     //obj => class / name
     setInfoCardInformation(state, obj) {
@@ -173,12 +174,7 @@ const mutations = {
     
     setProcessingState: (state, bool) => (state.isProcessing = bool),
     setInfoCardDataLoading: (state) => (state.infoCardInformation = state.infoCardInformation2 = "LOADING"),
-};
-
-        //state[arrays.sortedArray] = state[arrays.toBeSorted].sort((a, b) => a.firstname.localeCompare(b.firstname));
-    }
-}
-                        
+};                        
 
 export default {
     state,
