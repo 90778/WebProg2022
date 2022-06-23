@@ -4,8 +4,8 @@
         <select id="chosenUnit" v-model="chosenUnit" @change="getAllTechsForUnit()" >
             <option v-for="item in getAllUnits" :key="item.id" :value="item.name">{{ item.name }}</option>
         </select>
-        <div class="redirect" v-for="item in allTechsForUnit" :key="item.id">
-            <a @click="RedirectURL(item.id)">{{ item.name }}</a>
+        <div class="psydoLink" v-for="item in allTechsForUnit" :key="item.id">
+            <a @click="RedirectURL(item)">{{ item.name }}</a>
         </div>
     </div>
 </template>
@@ -45,21 +45,25 @@ export default {
                 
             }
             if(this.allTechsForUnit.length === 0){
-                let obj = {name: "There are no new Upgrades", id: -1};
+                let obj = {name: this.noUpgradeDefault, id: -1};
                 this.allTechsForUnit.push(obj);
             }
             //console.log(this.allTechsForUnit);
         },
         //Quelle: https://stackoverflow.com/questions/20834002/building-dynamic-url-using-a-href
-        RedirectURL(id) {
-            this.SessionStorage(id);
+        RedirectURL(clickedItem) {
+            if(clickedItem.name == this.noUpgradeDefault) {
+                console.log("no redirect link because no techs")
+                return;
+            }
+            this.SessionStorage(clickedItem);
             this.createDynamicURL(this.testURL);
             window.location = this.getNewURL;
         },
     
-        SessionStorage(id) {
+        SessionStorage(clickedItem) {
             console.log("writing");
-            let obj = {class: 'technologies', id: id}
+            let obj = {class: 'technologies', id: clickedItem.id}
             this.getInfoCard(obj);
             // entfernen nach testen
             sessionStorage.clear();
@@ -124,6 +128,7 @@ export default {
             testURL: "./wikiView",
             linkRegex: /^[a-z]{1,5}[^\s\da-zA-Z]{1,3}[a-z]{1,3}[^\s\da-zA-Z][a-z]{1,2}[^\s\da-zA-Z][a-z]{1,7}[^\s\da-zA-Z]\d[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]{1,9}[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]\d./, //[^\s\da-zA-Z][a-z]\d[^\s\da-zA-Z][a-z]{1,13}
             getInfoData: [],
+            noUpgradeDefault: "There are no new Upgrades",
         }
     },
 
