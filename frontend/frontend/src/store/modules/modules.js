@@ -8,6 +8,10 @@ const state = {
     units: [],
     structures: [],
     technologies: [],
+    sortedByNameCivilizations: [],
+    sortedByNameStructures: [],
+    sortedByNameTechnologies: [],
+    sortedByNameUnits: [],
     newURL: '',
     infoCardInformation: JSON.parse(sessionStorage.getItem('infoCardInformation')),
     infoCardInformation2: JSON.parse(sessionStorage.getItem('infoCardInformation')),
@@ -17,6 +21,10 @@ const state = {
 };
 // read only aus store
 const getters = {
+   getAllSortedByNameCivilizations: (state) => state.sortedByNameCivilizations,
+   getAllSortedByNameUnits:  (state) => state.sortedByNameUnits,
+   getAllSortedByNameStructures:  (state) => state.sortedByNameStructures,
+   getAllSortedByNameTechnologies:  (state) => state.sortedByNameTechnologies,
     getAllCivilizations: (state) => state.civilizations,
     getAllUnits:  (state) => state.units,
     getAllStructures:  (state) => state.structures,
@@ -54,6 +62,15 @@ const actions = {
     async fetchAllTechnologies({ commit }) {
         const response = await axios.get(state.corsProxy + state.api + "technologies");
         commit('setTechnologies', response.data.technologies);
+    },
+    // commit, dispatch
+    async sortAll({ commit , dispatch}) {
+        // needs to wait until infos are there
+        await dispatch('fetchAllCivilizations');
+        await dispatch('fetchAllUnits');
+        await dispatch('fetchAllStructures');
+        await dispatch('fetchAllTechnologies');
+        commit('sortByNameArray');
     },
 
     async createDynamicURL({ commit }, newURL) {
@@ -103,6 +120,16 @@ const mutations = {
     setUnits:  (state, units) => (state.units = units),
     setStructures:  (state, structures) => (state.structures = structures),
     setTechnologies:  (state, technologies) => (state.technologies = technologies),
+    
+    sortByNameArray(state) {
+        state.sortedByNameCivilizations = state.civilizations;
+        state.sortedByNameCivilizations.sort((a, b) => a.name.localeCompare(b.name));
+        state.sortedByNameUnits = state.units;
+        //state.sortedByNameUnits.sort((a, b) => a.name.localeCompare(b.name));
+        state.sortedByNameStructures = state.structures;
+        state.sortedByNameStructures.sort((a, b) => a.name.localeCompare(b.name));
+        state.sortedByNameTechnologies = state.technologies;
+        state.sortedByNameTechnologies.sort((a, b) => a.name.localeCompare(b.name));
 
     setNewURL: (state, newURL) => (state.newURL = newURL),
     //obj => class / name
@@ -147,6 +174,11 @@ const mutations = {
     setProcessingState: (state, bool) => (state.isProcessing = bool),
     setInfoCardDataLoading: (state) => (state.infoCardInformation = state.infoCardInformation2 = "LOADING"),
 };
+
+        //state[arrays.sortedArray] = state[arrays.toBeSorted].sort((a, b) => a.firstname.localeCompare(b.firstname));
+    }
+}
+                        
 
 export default {
     state,
