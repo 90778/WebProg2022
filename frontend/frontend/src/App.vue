@@ -1,16 +1,10 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/bewertung">Bewertung</router-link> |
-      <router-link to="/rest">REST</router-link> |
-      <router-link to="/vuex">VUEX</router-link> |
-      <router-link to="/testAgeView">TestAge</router-link> |
-      <router-link to="/fightSimulator">Kampfsimulator</router-link> |
       <router-link to="/wikiView">Wiki</router-link> |
+      <router-link to="/buildingCostCalculatorView">BuildingCostCalculator</router-link> |
       <router-link to="/techSearchView">TechSearch</router-link> |
-      <router-link to="/buildingCostCalculatorView">BuildingCostCalculator</router-link> 
+      <router-link to="/fightSimulator">Kampfsimulator</router-link>
     </div>
     <router-view/>
   </div>
