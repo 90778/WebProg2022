@@ -146,6 +146,9 @@ export default {
         if(sessionStorage.getItem('currentInfoCardClass') === null) {
             sessionStorage.setItem('currentInfoCardClass', "");
         }
+        if(sessionStorage.getItem('infoCardInformationArray') === null) {
+            sessionStorage.setItem('infoCardInformationArray', JSON.stringify([]));
+        }
     }
 }
 </script>
