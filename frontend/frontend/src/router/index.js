@@ -37,18 +37,41 @@ const routes = [
   {
     path: '/vuex',
     name: 'VUEX',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Vuex.vue')
   },
   {
     path: '/testAgeView',
     name: 'TESTAGEVIEW',
+    component: () => import(/* webpackChunkName: "about" */ '../views/TestAgeView.vue')
+  },
+  {
+    path: '/fightSimulator',
+    name: 'FIGHTSIMULATOR',
+    component: () => import(/* webpackChunkName: "about" */ '../views/FightSimulator.vue')
+  },
+  {
+    path: '/techSearchView',
+    name: 'TECHSEARCHVIEW',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/TestAgeView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/TechSearchView.vue')
+  },
+  {
+    path: '/wikiView',
+    name: 'WIKIVIEW',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/WikiView.vue')
+  },
+  {
+    path: '/buildingCostCalculatorView',
+    name: 'BUILDINGCOSTCALCULATOR',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/BuildingCostCalculatorView.vue')
   },
 ]
 
