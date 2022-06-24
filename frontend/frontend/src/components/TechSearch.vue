@@ -72,42 +72,6 @@ export default {
             sessionStorage.setItem('currentInfoCardClass', 'technologies');
         },
 
-    /*change() {
-        //console.log(document.getElementsByClassName("psydoLink"));
-        let domElement = document.getElementsByClassName("redirect");
-        if(typeof domElement['0'] == 'undefined') {
-            return;            }
-        let counter = 0;
-        let info = this.getInfoCardInformation2;
-        for(let item in info) {
-            domElement['0'].children[counter].className = "test";
-            //console.log(domElement['0'].children.length);
-
-            if(info[item] instanceof Array) {
-                for(let i = 0; i < info[item].length; i++ ) {
-                    // wenn link dann
-                    if(this.linkRegex.test(info[item])) {
-                        let split = info[item][i].replace(this.linkRegex, "").split("/");
-                        //setInfocardInformation
-                        
-                        domElement['0'].children[counter].addEventListener("click", () => {this.setThisInfoCard({class: split[0] + "s", name: split[1]})});
-                        domElement['0'].children[counter].className = "psydoLink";
-                            
-                    }
-                }
-            }else{
-                if(this.linkRegex.test(info[item])) {
-                    let split = info[item].replace(this.linkRegex, "").split("/");
-                    //setInfocardInformation
-                    domElement['0'].children[counter].addEventListener("click", () => {this.setThisInfoCard({class: split[0] + "s", name: split[1]})});
-                    domElement['0'].children[counter].className = "psydoLink";
-                }
-            }
-            counter++;
-        }
-            
-    },*/
-
     getInfoCard(obj) {
         if(obj.id === -1) {
             console.log("no entry to jump to")
@@ -117,9 +81,6 @@ export default {
         this.changeInfoCard(obj);
     },
 
-    /*setThisInfoCard(obj) {
-        this.setInfoCard(obj).then(() => this.change());
-    },*/
 },
     data() {
         return {
