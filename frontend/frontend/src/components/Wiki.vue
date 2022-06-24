@@ -3,28 +3,12 @@
         <h2>This is the Wiki</h2>
         <Button @click="getInfoCard(obj = {class: 'civilizations', id: 1})">Civilization</Button>
         <br>
-        <div v-if="getCurrentInfoCardClass === 'civilizations'">
-            <div>hi</div>
-            <br>
-        </div>
         <Button @click="getInfoCard(obj = {class: 'units', id: 1})">Unit</Button>
         <br>
-        <div v-if="getCurrentInfoCardClass === 'units'">
-            <div>hi</div>
-            <br>
-        </div>
         <Button @click="getInfoCard(obj = {class: 'structures', id: 1})">Structures</Button>
         <br>
-        <div v-if="getCurrentInfoCardClass === 'structures'">
-            <div>hi</div>
-            <br>
-        </div>
         <Button @click="getInfoCard({class: 'technologies', id: 1})">Technologies</Button>
         <br>
-        <div v-if="getCurrentInfoCardClass === 'technologies'">
-            <div>hi</div>
-            <br>
-        </div>
         <Button v-if="!getIsProcessing" @click="getInfoCard(obj = {class: getCurrentInfoCardClass, id: (parseInt(getInfoCardInformation.id) + 1)})">next</Button>
         <Button v-if="!getIsProcessing" @click="getInfoCard(obj = {class: getCurrentInfoCardClass, id: (parseInt(getInfoCardInformation.id) - 1)})">prev</Button>
         <InfoCard v-if="!getIsProcessing"/>
