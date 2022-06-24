@@ -9,7 +9,8 @@
       <router-link to="/testAgeView">TestAge</router-link> |
       <router-link to="/fightSimulator">Kampfsimulator</router-link> |
       <router-link to="/wikiView">Wiki</router-link> |
-      <router-link to="/techSearchView">TechSearch</router-link> 
+      <router-link to="/techSearchView">TechSearch</router-link> |
+      <router-link to="/buildingCostCalculatorView">BuildingCostCalculator</router-link> 
     </div>
     <router-view/>
   </div>
