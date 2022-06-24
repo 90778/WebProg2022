@@ -18,10 +18,10 @@
                     </select>
                 </div>
                 <div class="grid-item">
-                    <input type="number" v-bind="blueNumberOfUnits" placeholder="Anzahl Units"> 
+                    <input type="number" v-model="blueNumberOfUnits" placeholder="Anzahl Units"> 
                 </div> 
                 <div class="grid-item">
-                    <p>{{ blueUnit.attack }} + </p><input type="number" v-bind="blueBonusAttack" placeholder="Unit Bonus Attack"> 
+                    <p>{{ blueUnit.attack }} + </p><input type="number" v-model="blueBonusAttack" placeholder="Unit Bonus Attack"> 
                 </div>
             </div>
             <div id="red">
@@ -36,13 +36,13 @@
                     </select>
                 </div>
                 <div class="grid-item">
-                    <input type="number" v-bind="redNumberOfUnits" placeholder="Anzahl Units"> 
+                    <input type="number" v-model="redNumberOfUnits" placeholder="Anzahl Units"> 
                 </div> 
                 <div class="grid-item"><!-- v-bind binds data to element, but element needs to be bound to data. Not v-model -->
-                    <p>{{ redUnit.attack }} + </p><input id="redBonusAttack" type="number" @change="setVariable($event)" max="15" min="-15" placeholder="Unit Bonus Attack"> 
+                    <p>{{ redUnit.attack }} + </p><input id="redBonusAttack" type="number" v-model="redBonusAttack" max="15" min="-15" placeholder="Unit Bonus Attack"> 
                 </div>
             </div>
-            <div class="grid-item">{{ calculateFight() }}</div>
+            <div @click="calculateFight()" class="grid-item">{{ calculateFight() }}</div>
         </div> 
     </div>
 </template>
@@ -66,6 +66,7 @@ export default {
         },
 
         calculateFight() {
+            
             let armyHpBlue = this.blueUnit.hit_points;
             let armyHpRed = this.redUnit.hit_points;
 
@@ -79,9 +80,9 @@ export default {
 
             // bestimmung des Armee typs durch das spawn gebäude?
             // DPS
-            let armyAttackBlue = this.blueUnit.attack / this.blueUnit.reload_time;
+            let armyAttackBlue = (this.blueUnit.attack + this.blueBonusAttack) / this.blueUnit.reload_time;
             // attack = (if((attack - gegnerArmor) <== 0){1}else{attack - gegnerArmor} + bonusdamage) / reload_time
-            let armyAttackRed = this.redUnit.attack / this.redUnit.reload_time;
+            let armyAttackRed = (this.redUnit.attack + this.redBonusAttack) / this.redUnit.reload_time;
 
 
             //https://de.wikipedia.org/wiki/Gesetz_von_Lanchester
