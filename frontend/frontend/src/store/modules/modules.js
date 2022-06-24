@@ -15,7 +15,7 @@ const state = {
     newURL: '',
     infoCardInformation: JSON.parse(sessionStorage.getItem('infoCardInformation')),
     infoCardInformation2: JSON.parse(sessionStorage.getItem('infoCardInformation')),
-    infoCardInformationArray: [],
+    infoCardInformationArray: JSON.parse(sessionStorage.getItem('infoCardInformationArray')),
     isProcessing: (sessionStorage.getItem('isProcessing') === 'true'),
     currentInfoCardClass: sessionStorage.getItem('currentInfoCardClass'),
 };
@@ -39,8 +39,6 @@ const getters = {
     getIsProcessing: (state) => state.isProcessing,
     getInfoCardInformationArray: (state) => state.infoCardInformationArray,
     getCurrentInfoCardClass: (state) => state.currentInfoCardClass,
-
-   getNewURL: (state) => state.newURL,
 };
 // Instead of mutating the state, actions commit mutations
 const actions = {
@@ -95,7 +93,6 @@ const actions = {
             await dispatch("fetchAll" + obj.class.charAt(0).toUpperCase() + obj.class.slice(1));
         }
         commit('setInfoCardInformation', obj);
-        console.log("set");
         commit('setProcessingState', false);
     },
     
@@ -104,7 +101,6 @@ const actions = {
             await dispatch("fetchAll" + obj.class.charAt(0).toUpperCase() + obj.class.slice(1));
         }
         commit('changeInfoCardInformation', obj);
-        console.log("change");
         commit('setProcessingState', false);
     },
 

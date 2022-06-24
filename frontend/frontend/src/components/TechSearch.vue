@@ -21,7 +21,6 @@ export default {
         "fetchAllUnits", 
         "fetchAllStructures", 
         "fetchAllTechnologies",
-        "createDynamicURL",
         "setInfoCard",
         "changeInfoCard",
         "setProcessing",
@@ -57,12 +56,10 @@ export default {
                 return;
             }
             this.SessionStorage(clickedItem);
-            this.createDynamicURL(this.testURL);
-            window.location = this.getNewURL;
+            window.location = this.testURL;
         },
     
         SessionStorage(clickedItem) {
-            console.log("writing");
             let obj = {class: 'technologies', id: clickedItem.id}
             this.getInfoCard(obj);
             // entfernen nach testen
@@ -70,6 +67,7 @@ export default {
             sessionStorage.setItem('infoCardInformation', JSON.stringify(this.getInfoCardInformation));
             sessionStorage.setItem('isProcessing', false);
             sessionStorage.setItem('currentInfoCardClass', 'technologies');
+            sessionStorage.setItem('infoCardInformationArray', JSON.stringify(this.getInfoCardInformationArray))
         },
 
     getInfoCard(obj) {
@@ -77,7 +75,6 @@ export default {
             console.log("no entry to jump to")
             return;
         }
-        console.log(obj);
         this.changeInfoCard(obj);
     },
 
@@ -104,7 +101,6 @@ export default {
         "getInfoCardInformation2",
         "getInfoCardInformationArray",
         "getCurrentInfoCardClass",
-        "getNewURL",
         ])
     },
     
