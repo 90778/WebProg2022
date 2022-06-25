@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-        <h1>TestStuff</h1>
         <FightCalculator/>
     </div>
 </template>

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/WikiView.vue'
+import Home from '../views/TechSearchView.vue'
 
 Vue.use(VueRouter)
 

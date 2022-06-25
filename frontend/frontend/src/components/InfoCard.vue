@@ -1,16 +1,15 @@
 <template>
     <div id="app">
-        <h2>I am an InfoCard</h2>
-        
-        <div class="grid-container1">
-            <div class="grid-item1">
-                <div class="info">
-                    <!-- changes after generation to class psydoLink -->
-                    <div v-for="parameter in getInfoCardInformation" :key="parameter.id">{{ parseCorrectInfoCardInformation( parameter ) }}</div>
-                </div>
+        <div class="grid-container">
+            
+            <div class="grid-item">
+                <div v-for="name in getInfoCardInformationArray" :key="name.id">{{ (name.charAt(0).toUpperCase() + name.slice(1)).replace(/_/g, " ") + ":"}}</div>
             </div>
-            <div class="grid-item2">
-                <div v-for="name in getInfoCardInformationArray" :key="name.id">{{ name }}</div>
+            <div class="grid-item">
+                <div ><!--class="info"-->
+                    <!-- changes after generation to class psydoLink -->
+                    <div v-for="parameter in getInfoCardInformation" :key="parameter.id">{{ parseCorrectInfoCardInformation(parameter) }}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -68,10 +67,6 @@ export default {
             return element;
         },
 
-        addLinkEvent() {
-
-        },
-
         linkNameExtraction(string) {
             return string.replace(this.linkRegex, "").replace(/_/g, " ");
         },
@@ -105,5 +100,13 @@ export default {
     color: blue;
     text-decoration: underline;
 
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 10px;
+  padding: 10px;
+  align-content: center;
 }
 </style>

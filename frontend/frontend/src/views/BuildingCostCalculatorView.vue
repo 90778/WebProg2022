@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-        <h1>BuildingCalculator</h1>
         <BuildingCostCalculator/>
     </div>
 </template>

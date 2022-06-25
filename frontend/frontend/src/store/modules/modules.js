@@ -21,10 +21,10 @@ const state = {
 };
 // read only aus store
 const getters = {
-   getAllSortedByNameCivilizations: (state) => state.sortedByNameCivilizations,
-   getAllSortedByNameUnits:  (state) => state.sortedByNameUnits,
-   getAllSortedByNameStructures:  (state) => state.sortedByNameStructures,
-   getAllSortedByNameTechnologies:  (state) => state.sortedByNameTechnologies,
+    getAllSortedByNameCivilizations: (state) => state.sortedByNameCivilizations,
+    getAllSortedByNameUnits:  (state) => state.sortedByNameUnits,
+    getAllSortedByNameStructures:  (state) => state.sortedByNameStructures,
+    getAllSortedByNameTechnologies:  (state) => state.sortedByNameTechnologies,
     getAllCivilizations: (state) => state.civilizations,
     getAllUnits:  (state) => state.units,
     getAllStructures:  (state) => state.structures,
@@ -44,7 +44,6 @@ const getters = {
 const actions = {
     async fetchAllCivilizations({ commit }) {
         const response = await axios.get(state.corsProxy + state.api + "civilizations");
-
         commit('setCivilizations', response.data.civilizations);
     },
     async fetchAllUnits({ commit }) {

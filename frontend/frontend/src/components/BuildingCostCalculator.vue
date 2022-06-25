@@ -1,5 +1,6 @@
 <template>
   <div id="app" @change="ActualizeData()" @click="ActualizeData()">
+    <h1>BuildingCostCalculator</h1>
     <h1> Total Cost: </h1>
     <h3> Wood: {{ this.totalWoodCost}}</h3>
     <h3> Food: {{ this.totalFoodCost}}</h3>
@@ -11,7 +12,7 @@
     <br>
     <br>
 
-    <div id="buildings"></div>
+    <div id="buildings" class="grid-container"></div>
   </div>
 </template>
 
@@ -52,6 +53,7 @@ export default {
             // updates count of buildings
             for(let x = 0; x < document.getElementsByClassName("counter").length; x++) {
                 document.getElementsByClassName("counter")[String(x)].querySelectorAll("p")[0].innerHTML = this.buildingInfoArray[x].count;
+                //console.log(this.buildingInfoArray[x].count);
             }
         },
 
@@ -63,13 +65,11 @@ export default {
                 this.buildingList.push(obj);
                 // count up old element
             }else{
-                console.log(this.entryPoint);
-                for(let x = 0; x < this.entryPoint.children.length; x++) {
-                    if(document.getElementById(obj.name) !== undefined) {
+                for(let x = 0; x < this.buildingInfoArray.length; x++) {
+                    if(this.buildingInfoArray[x].name === obj.name) {
                         this.buildingInfoArray[x].count += 1;
                     }
                 }
-                
             }
             
         },
@@ -192,7 +192,6 @@ export default {
     },
     
     created() {
-        // sollte man auslagern
         this.fetchAllCivilizations();
         this.fetchAllUnits();
         this.fetchAllStructures();
@@ -204,26 +203,12 @@ export default {
 </script>
 
 <style>
-.grid-container {
+.grid-container1 {
   display: grid;
-  gap: 10px;
+    gap: 10px;
 }
 
-select {
-    text-align: center;
-    width: 10%;
-    padding: 10px 15px;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: #83e0ec;
-}
-
-button {
-    text-align: center;
-    width: 10%;
-    padding: 10px 15px;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: #83e0ec;
+#buildings {
+    grid-template-columns: auto auto auto auto;
 }
 </style>

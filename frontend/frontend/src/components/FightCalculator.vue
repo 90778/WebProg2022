@@ -1,12 +1,9 @@
 <template>
     <div id="app">
-        <!-- <div 
-        v-for="item in getAllSortedByNameCivilizations" 
-        :key="item.id">
-        {{ item.name }}
-        </div> -->
+        <div class="test">Calculate your fights</div>
         <div class="grid-container">
             <div id="blue">
+            <div>Blue</div>
                 <div class="grid-item">
                     <select v-model="blueCivilization" id="civilizationBlue" placeHolder="Civilization Blue">
                         <option v-for="item in getAllCivilizations" :key="item.id" :value="item">{{ item.name }}</option>
@@ -21,10 +18,12 @@
                     <input type="number" v-model="blueNumberOfUnits" placeholder="Anzahl Units"> 
                 </div> 
                 <div class="grid-item">
-                    <p>{{ blueUnit.attack }} + </p><input type="number" v-model="blueBonusAttack" placeholder="Unit Bonus Attack"> 
+                    <p> +{{ blueUnit.attack }}</p>
+                    <input type="number" max="12" min="-3" v-model="blueBonusAttack" placeholder="Unit Bonus Attack"> 
                 </div>
             </div>
             <div id="red">
+                <div>Red</div>
                 <div class="grid-item">
                     <select v-model="redCivilization" id="civilizationRed">
                         <option v-for="item in getAllCivilizations" :key="item.id" :value="item">{{ item.name }}</option>
@@ -39,11 +38,13 @@
                     <input type="number" v-model="redNumberOfUnits" placeholder="Anzahl Units"> 
                 </div> 
                 <div class="grid-item"><!-- v-bind binds data to element, but element needs to be bound to data. Not v-model -->
-                    <p>{{ redUnit.attack }} + </p><input id="redBonusAttack" type="number" v-model="redBonusAttack" max="15" min="-15" placeholder="Unit Bonus Attack"> 
+                    <p> +{{ redUnit.attack }}</p>
+                    <input id="redBonusAttack" type="number" v-model="redBonusAttack" max="12" min="-3" placeholder="Unit Bonus Attack"> 
                 </div>
             </div>
-            <div @click="calculateFight()" class="grid-item">{{ calculateFight() }}</div>
+           
         </div> 
+         <div @click="calculateFight()" id="result">The result of the fight is: {{ calculateFight() }}</div>
     </div>
 </template>
 
@@ -88,10 +89,13 @@ export default {
             //https://de.wikipedia.org/wiki/Gesetz_von_Lanchester
             let resultOfFight = (this.blueNumberOfUnits*this.blueNumberOfUnits*armyAttackBlue*armyHpBlue) - (this.redNumberOfUnits*this.redNumberOfUnits*armyAttackRed*armyHpRed);
             if(resultOfFight < 0) {
+                //document.getElementById("result").style.color = this.redWinColor;
                 return "Red Wins";
             } if(resultOfFight > 0) {
+                //document.getElementById("result").style.color = this.blueWinColor;
                 return "Blue Wins";
             } else {
+                //document.getElementById("result").style.color = this.drawColor;
                 return "Draw";
             }
 
@@ -103,19 +107,23 @@ export default {
         return {
             blueCivilization: '', // civ Json
             blueUnit: '', //unit Json
-            blueNumberOfUnits: 0,
-            blueBonusAttack: 0,
+            blueNumberOfUnits: "",
+            blueBonusAttack: "",
             //blueInfantryBonusArmor: 0,
             //blueArcherBonusArmor: 0,
             //blueUnitType: '',
+            blueWinColor: "blue",
 
             redCivilization: '',
             redUnit: '',
-            redNumberOfUnits: 0,
-            redBonusAttack: 0,
+            redNumberOfUnits: "",
+            redBonusAttack: "",
             //redInfantryBonusArmor: 0,
             //redArcherBonusArmor: 0,
             //redUnitType: '',
+            redWinColor: "red",
+
+            drawColor: "black",
         }
     },
 
@@ -133,7 +141,6 @@ export default {
     },
     
     created() {
-        // sollte man auslagern
         this.fetchAllCivilizations();
         this.fetchAllUnits();
         this.fetchAllStructures();
@@ -146,17 +153,38 @@ export default {
 </script>
 
 <style>
-.grid-container {
-  display: grid;
-  gap: 10px;
+#result {
+    text-align: center;
+    font-size: 40px;
+    margin: 100px;
 }
 
-select {
-    text-align: center;
-    width: 10%;
-    padding: 10px 15px;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: #83e0ec;
+.grid-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 10px;
+  padding: 10px;
+  align-content: center;
+}
+
+.test {
+    font-size: 40px;
+    margin: 50px;
+}
+
+#red {
+    background-color: rgb(255, 148, 148);
+}
+
+#blue {
+    background-color: rgb(141, 141, 250);
+}
+
+#red select {
+    background-color: rgb(250, 89, 89);
+}
+
+#blue select {
+    background-color: rgb(109, 109, 252);
 }
 </style>
