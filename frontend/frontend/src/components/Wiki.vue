@@ -1,5 +1,5 @@
 <template>
-    <div @change="changeAktiveButton()" @click="changeAktiveButton()" id="allButtons">
+    <div @change="changeButtonColor()" @click="changeButtonColor()" id="allButtons">
         <h2>This is the Age of Empires II Wiki</h2>
         <Button id="civilizations" @click="getInfoCard(obj = {class: 'civilizations', id: 1})">Civilization</Button>
         <br>
@@ -27,9 +27,9 @@ export default {
 
     data() {
         return {
-            linkRegex: /^[a-z]{1,5}[^\s\da-zA-Z]{1,3}[a-z]{1,3}[^\s\da-zA-Z][a-z]{1,2}[^\s\da-zA-Z][a-z]{1,7}[^\s\da-zA-Z]\d[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]{1,9}[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]\d./, //[^\s\da-zA-Z][a-z]\d[^\s\da-zA-Z][a-z]{1,13}
-            ButtonColor: "#04aee7cc",
-            ButtonClickedColor: "#0290c0",
+            linkRegex: /^[a-z]{1,5}[^\s\da-zA-Z]{1,3}[a-z]{1,3}[^\s\da-zA-Z][a-z]{1,2}[^\s\da-zA-Z][a-z]{1,7}[^\s\da-zA-Z]\d[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]{1,9}[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]\d./,
+            buttonColor: "#04aee7cc",
+            buttonClickedColor: "#0290c0",
         }
     },
 
@@ -44,51 +44,50 @@ export default {
         "setProcessing",
         ]),
 
-        changeAktiveButton() {
+        changeButtonColor() {
 
             let civilizationButton = document.getElementById("civilizations");
             let unitButton = document.getElementById("units");
             let structureButton = document.getElementById("structures");
             let technologieButton = document.getElementById("technologies");
 
-            civilizationButton.style.background = this.ButtonColor;
-            unitButton.style.background = this.ButtonColor;
-            structureButton.style.background = this.ButtonColor;
-            technologieButton.style.background = this.ButtonColor;
+            civilizationButton.style.background = this.buttonColor;
+            unitButton.style.background = this.buttonColor;
+            structureButton.style.background = this.buttonColor;
+            technologieButton.style.background = this.buttonColor;
 
-            document.getElementById(this.getCurrentInfoCardClass).style.background = this.ButtonClickedColor;
+            document.getElementById(this.getCurrentInfoCardClass).style.background = this.buttonClickedColor;
         },
 
-        change() {
-            let domElement = document.getElementsByClassName("info");
-            if(typeof domElement['0'] == 'undefined') {
+        addLinkToApiLinks() {
+            let infoCardInfoElement = document.getElementsByClassName("info")['0'];
+            if(typeof infoCardInfoElement === undefined) {
                 return;
             }
             let counter = 0;
             let info = this.getInfoCardInformation2;
             for(let item in info) {
-                domElement['0'].children[counter].className = "test";
+                let infoCardData = info[item];
+                infoCardInfoElement.children[counter].className = "test";
 
-                if(info[item] instanceof Array) {
-                    for(let i = 0; i < info[item].length; i++ ) {
+
+                if(infoCardData instanceof Array) {
+                    for(let i = 0; i < infoCardData.length; i++ ) {
                         // wenn link dann
-                       
-                        if(this.linkRegex.test(info[item])) { 
-                            let split = info[item][i].replace(this.linkRegex, "").split("/");
+                        if(this.linkRegex.test(infoCardData)) { 
+                            let split = infoCardData[i].replace(this.linkRegex, "").split("/");
                             //setInfocardInformation
-                            
-                            domElement['0'].children[counter].addEventListener("click", () => {this.setThisInfoCard({class: split[0] + "s", name: split[1]})});
-                            domElement['0'].children[counter].className = "psydoLink";
-                            
+                            infoCardInfoElement.children[counter].addEventListener("click", () => {this.setThisInfoCard({class: split[0] + "s", name: split[1]})});
+                            infoCardInfoElement.children[counter].className = "psydoLink";
                         }
                     }
                 }else{
                     
-                    if(this.linkRegex.test(info[item])) {
-                        let split = info[item].replace(this.linkRegex, "").split("/");
+                    if(this.linkRegex.test(infoCardData)) {
+                        let split = infoCardData.replace(this.linkRegex, "").split("/");
                         //setInfocardInformation
-                        domElement['0'].children[counter].addEventListener("click", () => {this.setThisInfoCard({class: split[0] + "s", name: split[1]})});
-                        domElement['0'].children[counter].className = "psydoLink";
+                        infoCardInfoElement.children[counter].addEventListener("click", () => {this.setThisInfoCard({class: split[0] + "s", name: split[1]})});
+                        infoCardInfoElement.children[counter].className = "psydoLink";
                     }
                 }
                 counter++;
@@ -97,11 +96,11 @@ export default {
         },
 
         getInfoCard(obj) {
-            this.changeInfoCard(obj).then(() => {this.change()});
+            this.changeInfoCard(obj).then(() => {this.addLinkToApiLinks()});
         },
 
         setThisInfoCard(obj) {
-            this.setInfoCard(obj).then(() => {this.change()});
+            this.setInfoCard(obj).then(() => {this.addLinkToApiLinks()});
         }
 
     },
@@ -121,7 +120,7 @@ export default {
     },
 
     mounted() {
-        this.changeAktiveButton()
+        this.changeButtonColor()
     },
     
     created() {

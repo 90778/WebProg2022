@@ -3,12 +3,12 @@
         <div class="grid-container">
             
             <div class="grid-item">
-                <div v-for="name in getInfoCardInformationArray" :key="name.id">{{ (name.charAt(0).toUpperCase() + name.slice(1)).replace(/_/g, " ") + ":"}}</div>
+                <div v-for="name in getInfoCardInformationArray" :key="name.id">{{ formatNameSide(name) }}</div>
             </div>
             <div class="grid-item">
-                <div ><!--class="info"-->
+                <div class="info">
                     <!-- changes after generation to class psydoLink -->
-                    <div v-for="parameter in getInfoCardInformation" :key="parameter.id">{{ parseCorrectInfoCardInformation(parameter) }}</div>
+                    <div v-for="name in getInfoCardInformation" :key="name.id">{{ parseInfoCardInfo(name) }}</div>
                 </div>
             </div>
         </div>
@@ -26,48 +26,55 @@ export default {
         "changeInfoCard",
         ]),
 
-        parseCorrectInfoCardInformation(element) {
-            // Arrays
-            if(element instanceof Array) {
-                let array = element.slice();
-                if(element.length === 0) {
+        formatNameSide(name) {
+            let string = (name.charAt(0).toUpperCase() + name.slice(1)).replace(/_/g, " ") + ":";
+            return string;
+        },
+
+        parseInfoCardInfo(name) {
+            if(name instanceof Array) {
+                let nameArray = name.slice();
+                if(name.length === 0) {
                     return "none";
                 }
-                for(let i = 0; i < element.length; i++ ) {
-                    array[i] = this.linkNameExtraction(array[i]);
+                for(let i = 0; i < name.length; i++ ) {
+                    nameArray[i] = this.getNameFromLink(nameArray[i]);
                 }
-                return array.toString();
+                return nameArray.toString();
             }
-            // Object
-            if(element instanceof Object) {
-                let array = [];
-                let array2 = [];
-                let json = JSON.stringify(element);
+            if(name instanceof Object) {
+                let dataArray = [];
+                let splitArray = [];
+                let json = JSON.stringify(name);
                 // auf spliten der object parameter
-                array = json.replace(/"/g, "").replace(/{|}/g, "").split(",");
+                dataArray = json.replace(/"/g, "").replace(/{|}/g, "").split(",");
 
-                for(let i = 0; i<array.length; i++) {
+                for(let i = 0; i<dataArray.length; i++) {
                     // entfernen des : und auf spliten von name und wert
-                    array2[i] = array[i].split(":")
+                    // split gibt eine array mit bezeichnung des Wertes und wert zurück
+                    //z.B Gold:25 => [Gold][25]
+                    splitArray[i] = dataArray[i].split(":");
+
                     let x = 0;
-                    while(x < array2[i].length -1) {
-                        array[i] = array2[i][x] + ": "
+                    while(x < splitArray[i].length -1) {
+                        // neu formatierung des dataArrays mit neu gesetztem :
+                        dataArray[i] = splitArray[i][x] + ": ";
                         x++;
                     }
                     // hinzufügen des letzen elements des arrays (braucht kein ": ")
-                    array[i] = array[i] + array2[i][x];
+                    dataArray[i] = dataArray[i] + splitArray[i][x];
                 }
-                return array.toString();
+                return dataArray.toString();
             }
             // string/number/etc.
-            if(this.linkRegex.test(element) && !(element instanceof Object)) {
-                return this.linkNameExtraction(element);
+            if(this.linkRegex.test(name) && !(name instanceof Object)) {
+                return this.getNameFromLink(name);
             }
             //default
-            return element;
+            return name;
         },
 
-        linkNameExtraction(string) {
+        getNameFromLink(string) {
             return string.replace(this.linkRegex, "").replace(/_/g, " ");
         },
 
@@ -81,7 +88,7 @@ export default {
     },
 
     mounted() {
-        this.$parent.change();
+        this.$parent.addLinkToApiLinks();
         console.log("InfoCard mounted");
     },
 

@@ -7,7 +7,7 @@
         <h3 v-if="!hideText">These technologies influence the unit:</h3>
         <div id="allTechs" class="psydoLink" v-for="item in allTechsForUnit" :key="item.id">
             
-            <a @click="RedirectURL(item)">{{ item.name }}</a>
+            <a @click="redirectURL(item)">{{ item.name }}</a>
         </div>
     </div>
 </template>
@@ -48,16 +48,16 @@ export default {
             this.hideText = false;
         },
 
-        RedirectURL(clickedItem) {
+        redirectURL(clickedItem) {
             if(clickedItem.name == this.noUpgradeDefault) {
                 console.log("no redirect link because no techs")
                 return;
             }
-            this.SessionStorage(clickedItem);
-            window.location = this.testURL;
+            this.storeInSessionStorage(clickedItem);
+            window.location = this.wikiUrl;
         },
     
-        SessionStorage(clickedItem) {
+        storeInSessionStorage(clickedItem) {
             let obj = {class: 'technologies', id: clickedItem.id}
             this.getInfoCard(obj);
             sessionStorage.clear();
@@ -67,20 +67,19 @@ export default {
             sessionStorage.setItem('infoCardInformationArray', JSON.stringify(this.getInfoCardInformationArray))
         },
 
-    getInfoCard(obj) {
-        if(obj.id === -1) {
-            console.log("no entry to jump to")
-            return;
-        }
-        this.changeInfoCard(obj);
+        getInfoCard(obj) {
+            if(obj.id === -1) {
+                console.log("no entry to jump to")
+                return;
+            }
+            this.changeInfoCard(obj);
+        },
     },
-
-},
     data() {
         return {
             chosenUnit: '',
             allTechsForUnit: [],
-            testURL: "./wikiView",
+            wikiUrl: "./wikiView",
             linkRegex: /^[a-z]{1,5}[^\s\da-zA-Z]{1,3}[a-z]{1,3}[^\s\da-zA-Z][a-z]{1,2}[^\s\da-zA-Z][a-z]{1,7}[^\s\da-zA-Z]\d[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]{1,9}[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]\d./, //[^\s\da-zA-Z][a-z]\d[^\s\da-zA-Z][a-z]{1,13}
             getInfoData: [],
             noUpgradeDefault: "There are no new Upgrades",

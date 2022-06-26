@@ -1,5 +1,5 @@
 <template>
-  <div id="app" @change="ActualizeData()" @click="ActualizeData()">
+  <div id="app" @click="actualizeData()">
     <h1>BuildingCostCalculator</h1>
     <h1> Total Cost: </h1>
     <h3> Wood: {{ this.totalWoodCost}}</h3>
@@ -33,16 +33,16 @@ export default {
         "setProcessing",
         ]),
 
-        ActualizeData() {
+        actualizeData() {
             let wood = 0;
             let food = 0;
             let gold = 0;
             let stone = 0;
             for(let x = 0; x < this.buildingInfoArray.length; x++) {
-                wood += this.buildingInfoArray[x].Wood * this.buildingInfoArray[x].count;
-                food += this.buildingInfoArray[x].Food * this.buildingInfoArray[x].count;
-                gold += this.buildingInfoArray[x].Gold * this.buildingInfoArray[x].count;
-                stone += this.buildingInfoArray[x].Stone * this.buildingInfoArray[x].count;
+                wood += this.buildingInfoArray[x].wood * this.buildingInfoArray[x].count;
+                food += this.buildingInfoArray[x].food * this.buildingInfoArray[x].count;
+                gold += this.buildingInfoArray[x].gold * this.buildingInfoArray[x].count;
+                stone += this.buildingInfoArray[x].stone * this.buildingInfoArray[x].count;
             }
 
             this.totalWoodCost = wood;
@@ -85,23 +85,24 @@ export default {
 
         createDomElement(obj) {
             // creat buildingInfoArray entry
-            let customObj = {   name: obj.name,
+            let CustomObj = {   name: obj.name,
                                 count: 1,
-                                Wood: 0,
-                                Food: 0,
-                                Gold: 0,
-                                Stone: 0,
+                                wood: 0,
+                                food: 0,
+                                gold: 0,
+                                stone: 0,
                             }
 
             for(let item in obj.cost) {
-                customObj[item] = obj.cost[item];
+                CustomObj[item.toLowerCase()] = obj.cost[item];
+                
             }
             
-            this.buildingInfoArray.push(customObj);
-
+            this.buildingInfoArray.push(CustomObj);
             let borderDiv = document.createElement('div');
             borderDiv.className = "borderDiv";
             borderDiv.id = this.newIdNumber;
+
             let idNumber = this.newIdNumber;
 
             let divName = document.createElement('div');
@@ -174,6 +175,7 @@ export default {
             totalStoneCost: 0,
         }
     },
+    
     mounted() {
        this.entryPoint = document.getElementById("buildings");
     },
@@ -203,8 +205,8 @@ export default {
 </script>
 
 <style>
-.grid-container1 {
-  display: grid;
+.grid-container {
+    display: grid;
     gap: 10px;
 }
 

@@ -75,7 +75,7 @@ const actions = {
     },
     
     async setInfoCard({ commit, dispatch }, obj) {
-        obj.name = obj.name.charAt(0).toUpperCase() + obj.name.slice(1); // ersten buchstaben groß
+        obj.name = obj.name.charAt(0).toUpperCase() + obj.name.slice(1); 
     
 
 
@@ -125,8 +125,8 @@ const mutations = {
         state.sortedByNameStructures.sort((a, b) => a.name.localeCompare(b.name));
         state.sortedByNameTechnologies = state.technologies;
         state.sortedByNameTechnologies.sort((a, b) => a.name.localeCompare(b.name));
-        //state[arrays.sortedArray] = state[arrays.toBeSorted].sort((a, b) => a.firstname.localeCompare(b.firstname));
     },
+
     setNewURL: (state, newURL) => (state.newURL = newURL),
     //obj => class / name
     setInfoCardInformation(state, obj) {

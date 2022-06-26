@@ -70,32 +70,18 @@ export default {
             
             let armyHpBlue = this.blueUnit.hit_points;
             let armyHpRed = this.redUnit.hit_points;
-
-            // bonus are to inconsistent in json to be useful
-            /*attackBonusBlue = 0;
-            attackBonusRed = 0;
-
-            for(i = 0; i < blueUnit.attack_Bonus.Length; i++) {
-                if(blueUnit.attack_Bonus[i] === redUnit.name )
-            }*/
-
-            // bestimmung des Armee typs durch das spawn gebäude?
-            // DPS
-            let armyAttackBlue = (this.blueUnit.attack + this.blueBonusAttack) / this.blueUnit.reload_time;
-            // attack = (if((attack - gegnerArmor) <== 0){1}else{attack - gegnerArmor} + bonusdamage) / reload_time
-            let armyAttackRed = (this.redUnit.attack + this.redBonusAttack) / this.redUnit.reload_time;
+            // DPS = DamagePerSecond
+            let blueArmyDPS = (this.blueUnit.attack + this.blueBonusAttack) / this.blueUnit.reload_time;
+            let redArmyDPS = (this.redUnit.attack + this.redBonusAttack) / this.redUnit.reload_time;
 
 
             //https://de.wikipedia.org/wiki/Gesetz_von_Lanchester
-            let resultOfFight = (this.blueNumberOfUnits*this.blueNumberOfUnits*armyAttackBlue*armyHpBlue) - (this.redNumberOfUnits*this.redNumberOfUnits*armyAttackRed*armyHpRed);
+            let resultOfFight = (this.blueNumberOfUnits*this.blueNumberOfUnits*blueArmyDPS*armyHpBlue) - (this.redNumberOfUnits*this.redNumberOfUnits*redArmyDPS*armyHpRed);
             if(resultOfFight < 0) {
-                //document.getElementById("result").style.color = this.redWinColor;
                 return "Red Wins";
             } if(resultOfFight > 0) {
-                //document.getElementById("result").style.color = this.blueWinColor;
                 return "Blue Wins";
             } else {
-                //document.getElementById("result").style.color = this.drawColor;
                 return "Draw";
             }
 
@@ -109,21 +95,11 @@ export default {
             blueUnit: '', //unit Json
             blueNumberOfUnits: "",
             blueBonusAttack: "",
-            //blueInfantryBonusArmor: 0,
-            //blueArcherBonusArmor: 0,
-            //blueUnitType: '',
-            blueWinColor: "blue",
 
             redCivilization: '',
             redUnit: '',
             redNumberOfUnits: "",
             redBonusAttack: "",
-            //redInfantryBonusArmor: 0,
-            //redArcherBonusArmor: 0,
-            //redUnitType: '',
-            redWinColor: "red",
-
-            drawColor: "black",
         }
     },
 
