@@ -3,7 +3,9 @@ import axios from "axios";
 // singleton speicher für alles
 const state = {
     api: "https://age-of-empires-2-api.herokuapp.com/api/v1/",
-    corsProxy: "https://thingproxy.freeboard.io/fetch/", // nicht mehr als 100.000 zeichen pro request && nicht mehr als 10 requests pro sekunde
+    corsProxy: "https://cors-anywhere.herokuapp.com/",// <= cors proxy für netlify https://cors-anywhere.herokuapp.com/corsdemo
+    //corsProxy: "https://thingproxy.freeboard.io/fetch/",// <= cors proxy für lokalen start 
+    // nicht mehr als 100.000 zeichen pro request && nicht mehr als 10 requests pro sekunde
     civilizations: [],
     units: [],
     structures: [],

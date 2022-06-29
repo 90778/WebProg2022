@@ -8,7 +8,7 @@
             <div class="grid-item">
                 <div class="info">
                     <!-- changes after generation to class psydoLink -->
-                    <div v-for="name in getInfoCardInformation" :key="name.id">{{ parseInfoCardInfo(name) }}</div>
+                    <div v-for="data in getInfoCardInformation" :key="data.id">{{ parseInfoCardInfo(data) }}</div>
                 </div>
             </div>
         </div>
@@ -31,21 +31,21 @@ export default {
             return string;
         },
 
-        parseInfoCardInfo(name) {
-            if(name instanceof Array) {
-                let nameArray = name.slice();
-                if(name.length === 0) {
+        parseInfoCardInfo(data) {
+            if(data instanceof Array) {
+                let nameArray = data.slice();
+                if(data.length === 0) {
                     return "none";
                 }
-                for(let i = 0; i < name.length; i++ ) {
+                for(let i = 0; i < data.length; i++ ) {
                     nameArray[i] = this.getNameFromLink(nameArray[i]);
                 }
                 return nameArray.toString();
             }
-            if(name instanceof Object) {
+            if(data instanceof Object) {
                 let dataArray = [];
                 let splitArray = [];
-                let json = JSON.stringify(name);
+                let json = JSON.stringify(data);
                 // auf spliten der object parameter
                 dataArray = json.replace(/"/g, "").replace(/{|}/g, "").split(",");
 
@@ -67,11 +67,11 @@ export default {
                 return dataArray.toString();
             }
             // string/number/etc.
-            if(this.linkRegex.test(name) && !(name instanceof Object)) {
-                return this.getNameFromLink(name);
+            if(this.linkRegex.test(data) && !(data instanceof Object)) {
+                return this.getNameFromLink(data);
             }
             //default
-            return name;
+            return data;
         },
 
         getNameFromLink(string) {
@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style>
-.psydoLink {
+.pseudoLink {
     color: blue;
     text-decoration: underline;
 

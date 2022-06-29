@@ -1,12 +1,11 @@
 <template>
   <div id="app" @click="actualizeData()">
-    <h1>BuildingCostCalculator</h1>
-    <h1> Total Cost: </h1>
+    <h1> Total cost of the buildings: </h1>
     <h3> Wood: {{ this.totalWoodCost}}</h3>
     <h3> Food: {{ this.totalFoodCost}}</h3>
     <h3> Gold: {{ this.totalGoldCost}}</h3>
     <h3> Stone: {{ this.totalStoneCost}}</h3>
-    <select id="xxx" @change="test()">
+    <select id="buildingPicker" @change="getBuildings()">
         <option v-for="item in getAllStructures" :key="item.id" :value="item.name">{{ item.name }}</option>
     </select>
     <br>
@@ -57,8 +56,8 @@ export default {
             }
         },
 
-        test() {
-            let obj = this.getObject(document.getElementById('xxx').value)
+        getBuildings() {
+            let obj = this.getStructure(document.getElementById('buildingPicker').value)
             // new element
             if(!this.checkIfBuildingExists(obj)) {
                 this.createDomElement(obj);
@@ -74,9 +73,9 @@ export default {
             
         },
 
-        getObject(itemString) {
+        getStructure(name) {
            for(let x = 0; x < this.getAllStructures.length; x++) {
-                if(this.getAllStructures[x].name.includes(itemString)) {
+                if(this.getAllStructures[x].name.includes(name)) {
                     return this.getAllStructures[x];
                 }
            }
@@ -194,10 +193,13 @@ export default {
     },
     
     created() {
-        this.fetchAllCivilizations();
-        this.fetchAllUnits();
-        this.fetchAllStructures();
-        this.fetchAllTechnologies();
+        if(this.getAllUnits.length === 0) {
+            console.log("pull");
+            this.fetchAllCivilizations();
+            this.fetchAllUnits();
+            this.fetchAllStructures();
+            this.fetchAllTechnologies();
+        }
     },
 
    

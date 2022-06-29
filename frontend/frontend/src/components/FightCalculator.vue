@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <div class="test">Calculate your fights</div>
+        <h1 class="test">Calculate your fights</h1>
         <div class="grid-container">
             <div id="blue">
             <div>Blue</div>
@@ -62,10 +62,6 @@ export default {
         "sortAll"
         ]),
 
-        setVariable(e) {
-            this[e.target.id] = document.getElementById(e.target.id).value;
-        },
-
         calculateFight() {
             
             let armyHpBlue = this.blueUnit.hit_points;
@@ -117,10 +113,13 @@ export default {
     },
     
     created() {
-        this.fetchAllCivilizations();
-        this.fetchAllUnits();
-        this.fetchAllStructures();
-        this.fetchAllTechnologies();
+        if(this.getAllUnits.length === 0) {
+            console.log("pull");
+            this.fetchAllCivilizations();
+            this.fetchAllUnits();
+            this.fetchAllStructures();
+            this.fetchAllTechnologies();
+        }
         this.sortAll();
     },
 

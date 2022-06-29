@@ -2,9 +2,9 @@
   <div id="app">
     <div id="nav">
       <router-link to="/wikiView">Wiki</router-link> |
-      <router-link to="/techSearchView">TechSearch</router-link> |
-      <router-link to="/fightSimulator">FightCalculator</router-link> |
-      <router-link to="/buildingCostCalculatorView">BuildingCostCalculator</router-link> 
+      <router-link to="/techSearchView">Technology Search</router-link> |
+      <router-link to="/fightSimulator">Fight Calculator</router-link> |
+      <router-link to="/buildingCostCalculatorView">Building Cost Calculator</router-link> 
     </div>
     <router-view/>
   </div>

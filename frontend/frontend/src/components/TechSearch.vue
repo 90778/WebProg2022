@@ -5,7 +5,7 @@
             <option v-for="item in getAllUnits" :key="item.id" :value="item.name">{{ item.name }}</option>
         </select>
         <h3 v-if="!hideText">These technologies influence the unit:</h3>
-        <div id="allTechs" class="psydoLink" v-for="item in allTechsForUnit" :key="item.id">
+        <div id="allTechs" class="pseudoLink" v-for="item in allTechsForUnit" :key="item.id">
             
             <a @click="redirectURL(item)">{{ item.name }}</a>
         </div>
@@ -54,7 +54,7 @@ export default {
                 return;
             }
             this.storeInSessionStorage(clickedItem);
-            window.location = this.wikiUrl;
+            this.$router.push(this.wikiUrl);
         },
     
         storeInSessionStorage(clickedItem) {
@@ -79,7 +79,7 @@ export default {
         return {
             chosenUnit: '',
             allTechsForUnit: [],
-            wikiUrl: "./wikiView",
+            wikiUrl: '/wikiView',
             linkRegex: /^[a-z]{1,5}[^\s\da-zA-Z]{1,3}[a-z]{1,3}[^\s\da-zA-Z][a-z]{1,2}[^\s\da-zA-Z][a-z]{1,7}[^\s\da-zA-Z]\d[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]{1,9}[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]{1,3}[^\s\da-zA-Z][a-z]\d./, //[^\s\da-zA-Z][a-z]\d[^\s\da-zA-Z][a-z]{1,13}
             getInfoData: [],
             noUpgradeDefault: "There are no new Upgrades",
@@ -102,16 +102,20 @@ export default {
     },
     
     created() {
-        this.fetchAllCivilizations();
-        this.fetchAllUnits();
-        this.fetchAllStructures();
-        this.fetchAllTechnologies();
+        if(this.getAllUnits.length === 0) {
+            console.log("pull");
+            this.fetchAllCivilizations();
+            this.fetchAllUnits();
+            this.fetchAllStructures();
+            this.fetchAllTechnologies();
+        }
+        
     }
 }
 </script>
 
 <style>
-.psydoLink {
+.pseudoLink {
     color: blue;
     text-decoration: underline;
     font-size: 30px;

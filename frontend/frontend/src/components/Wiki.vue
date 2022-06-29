@@ -1,6 +1,6 @@
 <template>
     <div @change="changeButtonColor()" @click="changeButtonColor()" id="allButtons">
-        <h2>This is the Age of Empires II Wiki</h2>
+        <h1>This is the Age of Empires II Wiki</h1>
         <Button id="civilizations" @click="getInfoCard(obj = {class: 'civilizations', id: 1})">Civilization</Button>
         <br>
         <Button id="units" @click="getInfoCard(obj = {class: 'units', id: 1})">Unit</Button>
@@ -72,22 +72,25 @@ export default {
 
 
                 if(infoCardData instanceof Array) {
+                    //checke alle Daten in der InfoKarte
                     for(let i = 0; i < infoCardData.length; i++ ) {
-                        // wenn link dann
+                        //teste ob die InfoKarte einen Link enthält
                         if(this.linkRegex.test(infoCardData)) { 
-                            let split = infoCardData[i].replace(this.linkRegex, "").split("/");
-                            //setInfocardInformation
-                            infoCardInfoElement.children[counter].addEventListener("click", () => {this.setThisInfoCard({class: split[0] + "s", name: split[1]})});
-                            infoCardInfoElement.children[counter].className = "psydoLink";
+                            //extraktion der Klasse und den Namen des Linkziels
+                            let data = infoCardData[i].replace(this.linkRegex, "").split("/");
+                            //setzen des click Events
+                            infoCardInfoElement.children[counter].addEventListener("click", () => {this.setLinkInfoCard({class: data[0] + "s", name: data[1]})});
+                            //mach den Link erkennbar
+                            infoCardInfoElement.children[counter].className = "pseudoLink";
                         }
                     }
                 }else{
                     
                     if(this.linkRegex.test(infoCardData)) {
-                        let split = infoCardData.replace(this.linkRegex, "").split("/");
+                        let data = infoCardData.replace(this.linkRegex, "").split("/");
                         //setInfocardInformation
-                        infoCardInfoElement.children[counter].addEventListener("click", () => {this.setThisInfoCard({class: split[0] + "s", name: split[1]})});
-                        infoCardInfoElement.children[counter].className = "psydoLink";
+                        infoCardInfoElement.children[counter].addEventListener("click", () => {this.setLinkInfoCard({class: data[0] + "s", name: data[1]})});
+                        infoCardInfoElement.children[counter].className = "pseudoLink";
                     }
                 }
                 counter++;
@@ -99,7 +102,7 @@ export default {
             this.changeInfoCard(obj).then(() => {this.addLinkToApiLinks()});
         },
 
-        setThisInfoCard(obj) {
+        setLinkInfoCard(obj) {
             this.setInfoCard(obj).then(() => {this.addLinkToApiLinks()});
         }
 
@@ -124,11 +127,13 @@ export default {
     },
     
     created() {
-        this.fetchAllCivilizations();
-        this.fetchAllUnits();
-        this.fetchAllStructures();
-        this.fetchAllTechnologies();
-
+        if(this.getAllUnits.length === 0) {
+            console.log("pull");
+            this.fetchAllCivilizations();
+            this.fetchAllUnits();
+            this.fetchAllStructures();
+            this.fetchAllTechnologies();
+        }
         if(sessionStorage.getItem('isProcessing') === null) {
             sessionStorage.setItem('isProcessing', true)
             this.setProcessing(true);
